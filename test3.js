@@ -15,10 +15,11 @@ test('Test 3', async t => {
     // verify that there is at least one device returned
     await t.expect(devicesfromApi.length).gte(1);
 
-    // create a new name
+    // create a new name (I know the instructions said to just call it 'Renamed device'
+    // but adding the random string is preferable in my experience)
     let newName = Str.random(10);
     let device1 = await devicesfromApi[0];
-    device1.system_name = newName;
+    device1.system_name = 'Renamed device ' + newName;
 
     // Do the PUT to update this device
     response = await fetch('http://localhost:3000/devices/' + device1.id, {
