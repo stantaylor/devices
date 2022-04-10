@@ -1,6 +1,6 @@
 import { Selector } from 'testcafe';
 import fetch from 'node-fetch';
-
+const Str = require('@supercharge/strings');
 
 fixture`Getting Started`
     .page`http://localhost:3001/`;
@@ -9,15 +9,14 @@ test('Test 1', async t => {
 
 
     // Get the /devices endpoint
-    const response = await fetch('http://localhost:3000/devices');
-    const devicesfromApi = await response.json();
-    // console.log(devicesfromApi);
-    const numDevicefFromApi = await devicesfromApi.length;
+    let response = await fetch('http://localhost:3000/devices');
+    let devicesfromApi = await response.json();
+    let numDevicefFromApi = await devicesfromApi.length;
 
 
     // get the list of devices from the page
-    const devicesInPage = await Selector('.device-main-box');
-    const numDevicesInPage = await devicesInPage.count;
+    let devicesInPage = await Selector('.device-main-box');
+    let numDevicesInPage = await devicesInPage.count;
 
     // verify that the API and page show the same number of devices
     await t.expect(numDevicefFromApi).eql(numDevicesInPage);
@@ -25,7 +24,7 @@ test('Test 1', async t => {
     // verify info about each device from the API
     for (let i = 0; i < devicesfromApi.length; i++) {
         let devicefromApi = await devicesfromApi[i];
-        console.log('Verifying device with ID in page: ' + devicefromApi.id + ' / ' + devicefromApi.system_name);
+        console.log('Verifying device in page: ' + devicefromApi.id + ' / ' + devicefromApi.system_name);
 
         // get the DOM chunk for this device
         let deviceInPage = await Selector('.device-main-box').withText(devicefromApi.system_name);
@@ -52,8 +51,5 @@ test('Test 1', async t => {
         attributes = await deviceInPage.find('button.device-remove').attributes;
 
     }
-
-
-
 
 });

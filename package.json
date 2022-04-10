@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/stantaylor/devices#readme",
   "dependencies": {
+    "@supercharge/strings": "^1.25.1",
     "node-fetch": "^2.6.1"
   }
 }
